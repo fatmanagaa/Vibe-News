@@ -38,6 +38,7 @@ dependencies:
   flutter_native_splash: ^2.4.7
   http: ^1.6.0
   cached_network_image: ^3.4.1
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_test:
