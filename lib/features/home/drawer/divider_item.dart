@@ -7,14 +7,15 @@ class DividerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
 
-    return Divider(
-      color: AppColors.whiteColor,
-      thickness: 2,
-      indent: width*0.04,
-      endIndent: width*0.04,
-
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: width * 0.02),
+      child: Divider(
+        color: AppColors.whiteColor,
+        thickness: 1,
+        indent: width * 0.04,
+        endIndent: width * 0.04,
+      ),
     );
   }
 }

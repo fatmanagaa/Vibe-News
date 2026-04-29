@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:news_app/core/utils/app_routes.dart';
 
 import '../../core/utils/app_assets.dart';
 import '../../core/utils/extensions/context_extensions.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,12 +12,14 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  @override
   void initState() {
     super.initState();
-    context.pushReplacementNamed('homeScreen');
-
-
-    Future.delayed(const Duration(seconds: 5), () {});
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted) {
+        context.pushReplacementNamed(AppRoutes.homeScreen);
+      }
+    });
   }
 
   @override
@@ -28,18 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 100),
-            Center(
-              child: Image.asset(AppAssets.logoPhoto, width: 250, height: 250),
-            ),
-            SizedBox(height: 150),
-            Center(
-              child: Image.asset(
-                AppAssets.brandingImage,
-                width: 200,
-                height: 80,
-              ),
-            ),
+            Center(child: Image.asset(AppAssets.getLogoPhoto(context))),
           ],
         ),
       ),

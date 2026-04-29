@@ -19,6 +19,8 @@ class AppTheme {
       labelMedium: AppStyles.medium14Black,
       headlineMedium: AppStyles.medium24Black,
       headlineLarge: AppStyles.medium20Black,
+      headlineSmall: AppStyles.bold30White,
+
     ),
   );
 
@@ -38,7 +40,7 @@ class AppTheme {
       labelSmall: AppStyles.medium14White,
       headlineMedium: AppStyles.medium24White,
       headlineLarge: AppStyles.medium20White,
-
+      headlineSmall: AppStyles.bold30Black,
     ),
   );
 }

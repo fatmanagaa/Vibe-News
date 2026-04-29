@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_styles.dart';
+import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/source_response.dart';
-import 'package:news_app/screens/home/category_details/source/source_widget.dart';
-import 'package:news_app/screens/home/widget/main_loading_widget.dart';
 import '../../../api/api_manger.dart';
+import '../widget/main_loading_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
   const CategoryDetails({super.key});
@@ -99,7 +99,11 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         }
 
         ///  Fallback
-        return const Center(child: Text("No Data"));
+        return const Center(child: Text("No Data",style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),));
       },
     );
   }

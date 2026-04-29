@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/model/news_response.dart';
-import 'package:news_app/screens/home/widget/main_loading_widget.dart';
 import '../../../core/utils/extensions/context_extensions.dart';
 import '../../../model/news_response.dart';
+import '../widget/main_loading_widget.dart';
 
 class NewsItem extends StatelessWidget {
   final News news;

@@ -27,7 +27,6 @@ class ApiManger {
     } catch (e) {
       rethrow;
     }
-    //what is diffrence between throw and rethrow
   }
 
   //https://newsapi.org/v2/everything?&apiKey=766d06a223d24570be90b8045f095011
