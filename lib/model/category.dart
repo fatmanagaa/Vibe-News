@@ -1,15 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_assets.dart';
 
 class Category {
-  String id;
-  String title;
-  String image;
+  final String id;
+  final String title;
+  final String image;
 
   Category({required this.image, required this.title, required this.id});
 
   ///business entertainment general health science sports technology
-  static List<Category> getCategoriesList(context, bool  isDarkMode) {
+  static List<Category> getCategoriesList(BuildContext context) {
     return [
       Category(
         image: AppAssets.getCategoryImageGeneral(context),
@@ -23,13 +23,13 @@ class Category {
       ),
       Category(
         image: AppAssets.getCategoryImageSport(context),
-        title: ' Sports',
-        id: ' sports',
+        title: 'Sports',
+        id: 'sports',
       ),
       Category(
         image: AppAssets.getCategoryImageHealth(context),
-        title: ' Health',
-        id: ' health',
+        title: 'Health',
+        id: 'health',
       ),
       Category(
         image: AppAssets.getCategoryImageEntertainment(context),

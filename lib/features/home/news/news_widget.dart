@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/model/news_response.dart';
 import 'package:news_app/model/source_response.dart';
-import 'package:news_app/screens/home/news/news_item.dart';
-import 'package:news_app/screens/home/widget/main_error_widget.dart';
-import 'package:news_app/screens/home/widget/main_loading_widget.dart';
+
+import '../widget/main_error_widget.dart';
+import '../widget/main_loading_widget.dart';
+import 'news_item.dart';
 
 class NewsWidget extends StatefulWidget {
   final Source source;

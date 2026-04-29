@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_colors.dart';
 import 'package:news_app/core/utils/app_styles.dart';
-import 'package:news_app/screens/home/category_fragment/category_fragment.dart';
-import 'package:news_app/screens/home/drawer/home_drawer.dart';
-
+import 'package:news_app/model/category.dart';
 import 'category_details/category_details.dart';
+import 'category_fragment/category_fragment.dart';
+import 'drawer/home_drawer.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,12 +13,16 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('home', style: AppStyles.medium20White),
+        title: Text('Home', style:  Theme.of(context).textTheme.headlineLarge,),
         centerTitle: true,
       ),
       drawer: Drawer(backgroundColor: AppColors.blackColor,
           child: HomeDrawer()),
-      body: CategoryFragment(),
+      body: CategoryFragment(onCategoryItemClick: onCategoryItemClick ),
     );
   }
+  void onCategoryItemClick(Category category) {
+
+  }
+
 }

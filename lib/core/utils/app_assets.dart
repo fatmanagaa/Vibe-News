@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class AppAssets {
-  static const String logoPhoto = 'assets/images/news_logo.png';
-  static const String brandingImage = 'assets/images/news_branding.png';
+  static String getLogoPhoto(BuildContext context) {
+    return Theme.of(context).brightness == Brightness.dark
+        ? 'assets/images/logos/news_logo.png'
+        : 'assets/images/logos/Light Logo.png';
+  }
   static const String homeIcon = 'assets/images/icons/Home 1.png';
   static const String languageIcon = 'assets/images/icons/laungauge.png';
   static const String themeIcon = 'assets/images/icons/theme.png';

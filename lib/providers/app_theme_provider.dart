@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class AppThemeProvider extends ChangeNotifier {
-  ThemeMode appTheme=ThemeMode.light;
+  ThemeMode appTheme = ThemeMode.system;
+
   void changeTheme(ThemeMode newMode) {
-    if (newMode == ThemeMode.light) {
+    if (appTheme == newMode) {
       return;
     }
     appTheme = newMode;
     notifyListeners();
   }
-    bool  isDarkMode() {
-     return appTheme==ThemeMode.dark;
-    }
-    bool isLightMode() {
-      return appTheme==ThemeMode.light;
-    }
+
+  bool isDarkMode() {
+    return appTheme == ThemeMode.dark;
+  }
+
+  bool isLightMode() {
+    return appTheme == ThemeMode.light;
+  }
   }
 
 

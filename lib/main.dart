@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:news_app/screens/home/home_screen.dart';
-import 'package:news_app/screens/splash_screen/splash_screen.dart';
 
 import 'core/utils/app_routes.dart';
 import 'core/utils/app_theme.dart';
+import 'features/home/home_screen.dart';
+import 'features/splash_screen/splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -21,14 +21,14 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: AppRoutes.homeScreen,
+        initialRoute: AppRoutes.splashScreen,
         routes: {
           AppRoutes.splashScreen: (context) => SplashScreen(),
           AppRoutes.homeScreen: (context) => HomeScreen(),
         },
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.light,
       ),
     );
   }
