@@ -3,12 +3,12 @@ import 'package:news_app/core/utils/app_assets.dart';
 import 'package:news_app/core/utils/app_colors.dart';
 import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/features/home/drawer/selected_item.dart';
-
 import 'divider_item.dart';
 import 'drawer_item.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({super.key});
+  final VoidCallback onDrawerItemClick;
+  const HomeDrawer({super.key, required this.onDrawerItemClick});
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,14 @@ class HomeDrawer extends StatelessWidget {
   }
 
   Widget _buildHomeSection() {
-    return DrawerItem(
-      iconName: AppAssets.homeIcon,
-      text: 'Go To Home',
+    return InkWell(
+      onTap: (){
+        onDrawerItemClick();
+      },
+      child: DrawerItem(
+        iconName: AppAssets.homeIcon,
+        text: 'Go To Home',
+      ),
     );
   }
 

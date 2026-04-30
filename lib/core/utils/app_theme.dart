@@ -20,7 +20,6 @@ class AppTheme {
       headlineMedium: AppStyles.medium24Black,
       headlineLarge: AppStyles.medium20Black,
       headlineSmall: AppStyles.bold30White,
-
     ),
   );
 
@@ -34,7 +33,6 @@ class AppTheme {
       iconTheme: IconThemeData(color: AppColors.whiteColor),
     ),
     textTheme: TextTheme(
-
       labelLarge: AppStyles.bold16White,
       labelMedium: AppStyles.medium14White,
       labelSmall: AppStyles.medium14White,
