@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_colors.dart';
 import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/model/category.dart';
+import 'package:provider/provider.dart';
+import '../../providers/app_language_provider.dart';
+import '../../providers/app_theme_provider.dart';
 import 'category_details/category_details.dart';
 import 'category_fragment/category_fragment.dart';
 import 'drawer/home_drawer.dart';
@@ -18,18 +21,18 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var appLanguageProvider = Provider.of<AppLanguageProvider>(context);
+    var appThemeProvider = Provider.of<AppThemeProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(
           selectedCategory == null ? 'Home' : selectedCategory!.title,
-          style: selectedCategory == null
-              ? Theme.of(context).textTheme.headlineLarge
-              : AppStyles.medium24White,
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
         centerTitle: true,
       ),
       drawer: Drawer(
-        backgroundColor: AppColors.blackColor,
+        backgroundColor:appThemeProvider.isDarkMode()?AppColors.whiteColor:AppColors.blackColor ,
         child: HomeDrawer(onDrawerItemClick: onDrawerItemClick),
       ),
       body: selectedCategory == null
