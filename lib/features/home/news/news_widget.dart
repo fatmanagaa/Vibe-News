@@ -43,13 +43,22 @@ class _NewsWidgetState extends State<NewsWidget> {
           );
         }
         var newsList = snapshot.data?.articles ?? [];
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            return NewsItem(news: newsList[index]);
-          },
-          itemCount: newsList.length,
-        );
-      },
+        if (newsList.isEmpty) {
+          return Center(
+            child: Text(
+              "No Data",
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          );
+        }
+        else {
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return NewsItem(news: newsList[index]);
+            },
+            itemCount: newsList.length,
+          );
+        } },
     );
   }
 }

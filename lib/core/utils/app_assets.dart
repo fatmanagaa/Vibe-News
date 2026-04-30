@@ -6,6 +6,7 @@ class AppAssets {
         ? 'assets/images/logos/news_logo.png'
         : 'assets/images/logos/Light Logo.png';
   }
+
   static const String homeIcon = 'assets/images/icons/Home 1.png';
   static const String languageIcon = 'assets/images/icons/laungauge.png';
   static const String themeIcon = 'assets/images/icons/theme.png';
