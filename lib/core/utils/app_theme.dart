@@ -9,6 +9,7 @@ class AppTheme {
     splashColor: AppColors.blackColor,
     scaffoldBackgroundColor: AppColors.whiteColor,
     appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: AppColors.blackColor),
       backgroundColor: AppColors.whiteColor,
       iconTheme: IconThemeData(color: AppColors.blackColor),
       centerTitle: true,
@@ -28,6 +29,7 @@ class AppTheme {
     splashColor: AppColors.whiteColor,
     scaffoldBackgroundColor: AppColors.blackColor,
     appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(color: AppColors.whiteColor),
       centerTitle: true,
       backgroundColor: AppColors.blackColor,
       iconTheme: IconThemeData(color: AppColors.whiteColor),

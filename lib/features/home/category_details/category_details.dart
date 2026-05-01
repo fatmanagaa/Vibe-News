@@ -3,7 +3,7 @@ import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
-import '../../../api/api_manger.dart';
+import '../../../api/dio/dio_manager.dart';
 import '../widget/main_loading_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
@@ -26,8 +26,10 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   }
 
   void _fetchSources() {
-    _sourcesFuture = ApiManger.getSources(widget.category.id);
+    _sourcesFuture = DioManager.getSources(widget.category.id);
   }
+
+
 
   @override
   Widget build(BuildContext context) {
