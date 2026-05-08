@@ -33,8 +33,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: Drawer(
         backgroundColor: appThemeProvider.isDarkMode()
-            ? AppColors.whiteColor
-            : AppColors.blackColor,
+            ? AppColors.blackColor
+            : AppColors.whiteColor,
         child: HomeDrawer(onDrawerItemClick: onDrawerItemClick),
       ),
       body: selectedCategory == null

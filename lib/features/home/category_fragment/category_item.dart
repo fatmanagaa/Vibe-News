@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_colors.dart';
+import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/model/category.dart';
+
+import '../../../core/utils/extensions/context_extensions.dart';
 
 class CategoryItem extends StatelessWidget {
   final Category category;
@@ -14,6 +17,7 @@ class CategoryItem extends StatelessWidget {
     final width = size.width;
     final height = size.height;
     final isEven = index.isEven;
+    final isDarkMode = context.isDark;
     final titleAlignment = isEven ? Alignment.topRight : Alignment.topLeft;
     final buttonAlignment = isEven
         ? Alignment.bottomRight
@@ -52,7 +56,7 @@ class CategoryItem extends StatelessWidget {
                       category.title,
                       maxLines: 2,
                       textAlign: isEven ? TextAlign.right : TextAlign.left,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: isDarkMode?AppStyles.bold30Black:AppStyles.bold30White ,
                     ),
                   ),
                   Align(

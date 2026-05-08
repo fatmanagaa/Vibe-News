@@ -4,6 +4,7 @@ import 'package:news_app/features/home/category_details/source/source_widget.dar
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
 import '../../../api/dio/dio_manager.dart';
+import '../../../core/utils/app_colors.dart';
 import '../widget/main_loading_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
@@ -49,7 +50,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
               children: [
                 Text(
                   'Something went wrong: ${snapshot.error}',
-                  style: AppStyles.bold16Black,
+                  style: Theme.of(context).textTheme.labelLarge,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 10),
@@ -59,7 +60,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                       _fetchSources();
                     });
                   },
-                  child: Text('Try Again', style: AppStyles.bold16White),
+                  child: Text('Try Again', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.whiteColor)),
                 ),
               ],
             ),
@@ -75,7 +76,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                 children: [
                   Text(
                     snapshot.data!.message ?? 'API Error',
-                    style: AppStyles.bold16Black,
+                    style: Theme.of(context).textTheme.labelLarge,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
@@ -84,7 +85,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
                         _fetchSources();
                       });
                     },
-                    child: Text('Try Again', style: AppStyles.bold16White),
+                    child: Text('Try Again', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.whiteColor)),
                   ),
                 ],
               ),
