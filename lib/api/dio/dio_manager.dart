@@ -6,6 +6,7 @@ import 'package:news_app/model/source_response.dart';
 
 class DioManager {
   static final Dio dio = Dio(
+
     BaseOptions(
       baseUrl: 'https://newsapi.org',
       queryParameters: {'apiKey': ApiConstants.apiKey},

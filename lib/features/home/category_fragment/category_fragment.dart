@@ -23,8 +23,8 @@ class CategoryFragment extends StatelessWidget {
     final isDarkMode = context.isDark;
     final categoriesList = Category.getCategoriesList(context);
     final titleStyle = isDarkMode
-        ? AppStyles.medium24White
-        : AppStyles.medium24Black;
+        ? AppStyles.medium24Black
+        : AppStyles.medium24White;
 
     return SingleChildScrollView(
       child: Padding(
