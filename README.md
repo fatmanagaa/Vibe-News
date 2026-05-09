@@ -117,7 +117,7 @@ lib/
 ### 1) Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/Vibe-News.git
+git clone https://github.com/fatmanagaa/Vibe-News.git
 cd Vibe-News
 ```
 
