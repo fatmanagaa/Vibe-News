@@ -29,7 +29,7 @@ class _NewsWidgetState extends State<NewsWidget> {
           return MainErrorWidget(
             errorMsg: 'Something went wrong',
             onRetry: () {
-              ApiManger.getNewsBySourceId(widget.source.id ?? '');
+              DioManger().getNewsBySourceId(widget.source.id ?? '');
             },
           );
         }
@@ -38,7 +38,7 @@ class _NewsWidgetState extends State<NewsWidget> {
           return MainErrorWidget(
             errorMsg: snapshot.data!.message!,
             onRetry: () {
-              ApiManger.getNewsBySourceId(widget.source.id ?? '');
+              DioManger().getNewsBySourceId(widget.source.id ?? '');
               setState(() {});
             },
           );
