@@ -1,21 +1,59 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:news_app/api/api_constants.dart';
 import 'package:news_app/api/api_endpoints.dart';
 import 'package:news_app/model/news_response.dart';
 import 'package:news_app/model/source_response.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioManager {
-  static final Dio dio = Dio(
-
+  final Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://newsapi.org',
       queryParameters: {'apiKey': ApiConstants.apiKey},
-      connectTimeout: Duration(seconds: 10),
-      receiveTimeout: Duration(seconds: 10),
+      receiveTimeout: Duration(seconds: 30),
+      connectTimeout: Duration(seconds: 30),
+      receiveDataWhenStatusError: true,
     ),
   );
 
-  static Future<SourceResponse> getSources(String categoryId) async {
+  // DioManager() {
+  //   dio.interceptors.add(
+  //     LogInterceptor(
+  //       request: true,
+  //       requestUrl: true,
+  //       requestBody: true,
+  //       requestHeader: true,
+  //       responseBody: true,
+  //       responseHeader: true,
+  //       error: true,
+  //     ),
+  //   );
+  // }
+  //todo:another way instead logInterceptor
+  DioManager(){
+    dio.interceptors.add(PrettyDioLogger(
+        requestHeader: true,
+        requestBody: true,
+        responseBody: true,
+        responseHeader: false,
+        error: true,
+        compact: true,
+        maxWidth: 90,
+        enabled: kDebugMode,
+        filter: (options, args){
+          // don't print requests with uris containing '/posts'
+          if(options.path.contains('/posts')){
+            return false;
+          }
+          // don't print responses with unit8 list data
+          return !args.isResponse || !args.hasUint8ListData;
+        }
+    )
+    );
+  }
+
+  Future<SourceResponse> getSources(String categoryId) async {
     try {
       var response = await dio.get(
         ApiEndpoints.sourceApi,
@@ -28,7 +66,7 @@ class DioManager {
     }
   }
 
-  static Future<NewsResponse> getNewsBySourceId(String sourceId) async {
+   Future<NewsResponse> getNewsBySourceId(String sourceId) async {
     try {
       var response = await dio.get(
         ApiEndpoints.newsApi,
