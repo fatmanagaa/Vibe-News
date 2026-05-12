@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
@@ -28,6 +29,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
 
   void _fetchSources() {
     _sourcesFuture = DioManager().getSources(widget.category.id);
+    _sourcesFuture = ApiManger.getSources(widget.category.id);
   }
 
 

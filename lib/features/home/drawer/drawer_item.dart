@@ -5,17 +5,23 @@ import 'package:news_app/core/utils/app_styles.dart';
 class DrawerItem extends StatelessWidget {
   final String iconName;
   final String text;
+  final bool isDarkMode;
 
   const DrawerItem({
     super.key,
     required this.iconName,
     required this.text,
+    required this.isDarkMode,
   });
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final iconSize = width * 0.08; // Responsive size (approximately 30px on standard devices)
+
+    final textStyle = isDarkMode
+        ? AppStyles.medium20White
+        : AppStyles.medium20Black;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -32,7 +38,7 @@ class DrawerItem extends StatelessWidget {
           ),
           Text(
             text,
-            style: AppStyles.medium20White,
+            style: textStyle,
           ),
         ],
       ),

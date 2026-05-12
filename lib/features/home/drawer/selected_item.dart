@@ -5,17 +5,25 @@ import 'package:news_app/core/utils/app_styles.dart';
 class SelectedItem extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
+  final bool isDarkMode;
 
   const SelectedItem({
     super.key,
     required this.text,
     required this.onPressed,
+    required this.isDarkMode,
   });
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
+    final textColor = isDarkMode ? AppColors.whiteColor : AppColors.blackColor;
+    final borderColor = isDarkMode ? AppColors.whiteColor : AppColors.blackColor;
+    final textStyle = isDarkMode
+        ? AppStyles.medium20White
+        : AppStyles.medium20Black;
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -29,7 +37,7 @@ class SelectedItem extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: AppColors.whiteColor,
+          color: borderColor,
           width: 2,
         ),
       ),
@@ -38,14 +46,14 @@ class SelectedItem extends StatelessWidget {
         children: [
           Text(
             text,
-            style: AppStyles.medium20White,
+            style: textStyle,
           ),
           GestureDetector(
             onTap: onPressed,
             child: Icon(
               Icons.arrow_drop_down,
               size: 24,
-              color: AppColors.whiteColor,
+              color: textColor,
             ),
           ),
         ],

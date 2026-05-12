@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_styles.dart';
 import 'package:news_app/model/category.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/extensions/context_extensions.dart';
+import '../../../providers/app_theme_provider.dart';
 import 'category_item.dart';
 
 typedef OnCategoryItemClick = void Function(Category category);
@@ -18,47 +20,51 @@ class CategoryFragment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final width = context.width;
-    final height = context.height;
-    final isDarkMode = context.isDark;
-    final categoriesList = Category.getCategoriesList(context);
-    final titleStyle = isDarkMode
-        ? AppStyles.medium24Black
-        : AppStyles.medium24White;
+    return Consumer<AppThemeProvider>(
+      builder: (context, themeProvider, _) {
+        final width = context.width;
+        final height = context.height;
+        final isDarkMode = themeProvider.isDarkMode();
+        final categoriesList = Category.getCategoriesList(context);
+        final titleStyle = isDarkMode
+            ? AppStyles.medium24White
+            : AppStyles.medium24Black;
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: width * 0.04),
-        child: Column(
-          spacing: height * 0.02,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Good Morning \n Here is Some News For You',
-              style: titleStyle,
-            ),
-            ListView.separated(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    //todo: navigate to category details By Using Call Back Function
-                    onCategoryItemClick(categoriesList[index]);
+        return SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: width * 0.04),
+            child: Column(
+              spacing: height * 0.02,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Good Morning \n Here is Some News For You',
+                  style: titleStyle,
+                ),
+                ListView.separated(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        //todo: navigate to category details By Using Call Back Function
+                        onCategoryItemClick(categoriesList[index]);
+                      },
+                      child: CategoryItem(
+                        category: categoriesList[index],
+                        index: index,
+                      ),
+                    );
                   },
-                  child: CategoryItem(
-                    category: categoriesList[index],
-                    index: index,
-                  ),
-                );
-              },
-              separatorBuilder: (context, index) =>
-                  SizedBox(height: height * 0.02),
-              itemCount: categoriesList.length,
+                  separatorBuilder: (context, index) =>
+                      SizedBox(height: height * 0.02),
+                  itemCount: categoriesList.length,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
