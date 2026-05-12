@@ -28,6 +28,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
   }
 
   void _fetchSources() {
+    _sourcesFuture = DioManager().getSources(widget.category.id);
     _sourcesFuture = ApiManger.getSources(widget.category.id);
   }
 
