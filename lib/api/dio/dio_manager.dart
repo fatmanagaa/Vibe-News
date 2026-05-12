@@ -46,7 +46,7 @@ class DioManager {
           if(options.path.contains('/posts')){
             return false;
           }
-          // don't print responses with unit8 list data
+          // don't print responses with Uint8List data
           return !args.isResponse || !args.hasUint8ListData;
         }
     )
