@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/api/dio/dio_manager.dart';
 import 'package:news_app/model/news_response.dart';
 import 'package:news_app/model/source_response.dart';
@@ -24,12 +23,12 @@ class _NewsWidgetState extends State<NewsWidget> {
       future: DioManager().getNewsBySourceId(widget.source.id ?? ''),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MainLoadingWidget();
+          return const MainLoadingWidget();
         } else if (snapshot.hasError) {
           return MainErrorWidget(
             errorMsg: 'Something went wrong',
             onRetry: () {
-              DioManger().getNewsBySourceId(widget.source.id ?? '');
+              setState(() {});
             },
           );
         }
@@ -38,7 +37,6 @@ class _NewsWidgetState extends State<NewsWidget> {
           return MainErrorWidget(
             errorMsg: snapshot.data!.message!,
             onRetry: () {
-              DioManger().getNewsBySourceId(widget.source.id ?? '');
               setState(() {});
             },
           );
@@ -51,15 +49,15 @@ class _NewsWidgetState extends State<NewsWidget> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           );
-        }
-        else {
+        } else {
           return ListView.builder(
             itemBuilder: (context, index) {
               return NewsItem(news: newsList[index]);
             },
             itemCount: newsList.length,
           );
-        } },
+        }
+      },
     );
   }
 }

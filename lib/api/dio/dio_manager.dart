@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:news_app/api/api_constants.dart';
 import 'package:news_app/api/api_endpoints.dart';
 import 'package:news_app/model/news_response.dart';
@@ -9,7 +8,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class DioManager {
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: ApiConstants.baseUrl,
+      baseUrl: "https://newsapi.org/v2/",
       queryParameters: {'apiKey': ApiConstants.apiKey},
       receiveTimeout: Duration(seconds: 30),
       connectTimeout: Duration(seconds: 30),
@@ -31,25 +30,15 @@ class DioManager {
   //   );
   // }
   //todo:another way instead logInterceptor
-  DioManager(){
-    dio.interceptors.add(PrettyDioLogger(
+  DioManager() {
+    dio.interceptors.add(
+      PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
         responseBody: true,
         responseHeader: false,
         error: true,
-        compact: true,
-        maxWidth: 90,
-        enabled: kDebugMode,
-        filter: (options, args){
-          // don't print requests with uris containing '/posts'
-          if(options.path.contains('/posts')){
-            return false;
-          }
-          // don't print responses with Uint8List data
-          return !args.isResponse || !args.hasUint8ListData;
-        }
-    )
+      ),
     );
   }
 
@@ -66,11 +55,11 @@ class DioManager {
     }
   }
 
-   Future<NewsResponse> getNewsBySourceId(String sourceId) async {
+  Future<NewsResponse> getNewsBySourceId(String sourceId) async {
     try {
       var response = await dio.get(
         ApiEndpoints.newsApi,
-        queryParameters: {'source': sourceId},
+        queryParameters: {'sources': sourceId},
       );
       var json = response.data;
       return NewsResponse.fromJson(json);
