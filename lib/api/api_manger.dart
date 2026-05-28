@@ -31,6 +31,8 @@ class ApiManger {
   }
 
   //https://newsapi.org/v2/everything?&apiKey=766d06a223d24570be90b8045f095011
+  //https://newsapi.org/v2/everything?&apiKey=766d06a223d24570be90b8045f095011
+
   static Future<NewsResponse> getNewsBySourceId(String sourceId) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiEndpoints.newsApi, {
       'apiKey': ApiConstants.apiKey,
