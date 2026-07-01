@@ -49,14 +49,6 @@ The app is designed with reusable components, scalable structure, and clean code
 ![Category Screen](assets/screenshots/category.png)
 ![Article Details](assets/screenshots/article_details.png)
 ```
-
----
-
-## 🎥 Demo / Screen Recording
-
-- 📽️ Demo Video: **[Add your demo link here](https://example.com/demo-video)**
-- 🌐 Live Preview (if web deployed): **[Add deployment link](https://example.com)**
-
 ---
 
 ## 🧱 Architecture
