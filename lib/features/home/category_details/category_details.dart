@@ -1,122 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/api_manger.dart';
-import 'package:news_app/core/utils/app_styles.dart';
+import 'package:news_app/features/home/category_details/source/source_view_model.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
-import '../../../api/dio/dio_manager.dart';
+import 'package:provider/provider.dart';
 import '../../../core/utils/app_colors.dart';
 import '../widget/main_loading_widget.dart';
 
 class CategoryDetails extends StatefulWidget {
-
   final Category category;
 
-  const CategoryDetails({super.key,  required this.category});
+  const CategoryDetails({super.key, required this.category});
 
   @override
   State<CategoryDetails> createState() => _CategoryDetailsState();
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
-  late Future<SourceResponse> _sourcesFuture;
+  final SourceViewModel viewModel = SourceViewModel();
 
   @override
   void initState() {
     super.initState();
-    _fetchSources();
+    viewModel.getSources(widget.category.id);
   }
-
-  void _fetchSources() {
-    _sourcesFuture = DioManager().getSources(widget.category.id);
-    // _sourcesFuture = ApiManger.getSources(widget.category.id);
-  }
-
-
 
   @override
   Widget build(BuildContext context) {
-
-    return FutureBuilder<SourceResponse>(
-      future: _sourcesFuture,
-      builder: (context, snapshot) {
-        // Loading
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MainLoadingWidget();
-        }
-        // Network Error / Connection failed
-        else if (snapshot.hasError) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Something went wrong: ${snapshot.error}',
-                  style: Theme.of(context).textTheme.labelLarge,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 10),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _fetchSources();
-                    });
-                  },
-                  child: Text('Try Again', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.whiteColor)),
-                ),
-              ],
-            ),
-          );
-        }
-        // Api Response Arrived
-        else if (snapshot.hasData) {
-          // API Error (status not ok)
-          if (snapshot.data!.status != 'ok') {
+    return ChangeNotifierProvider(
+      create: (context) => viewModel,
+      child: Consumer<SourceViewModel>(
+        builder: (context, viewModel, child) {
+          // Loading
+          if (viewModel.sourcesList == null && viewModel.errorMessage == null) {
+            return const MainLoadingWidget();
+          }
+          // Error
+          else if (viewModel.errorMessage != null) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    snapshot.data!.message ?? 'API Error',
+                    'Something went wrong: ${viewModel.errorMessage}',
                     style: Theme.of(context).textTheme.labelLarge,
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 10),
                   ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _fetchSources();
-                      });
+                      viewModel.getSources(widget.category.id);
                     },
-                    child: Text('Try Again', style: Theme.of(context).textTheme.labelLarge?.copyWith(color: AppColors.whiteColor)),
+                    child: Text(
+                      'Try Again',
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        color: AppColors.whiteColor,
+                      ),
+                    ),
                   ),
                 ],
               ),
             );
           }
-
           // Success
-          List<Source>? sourcesList = snapshot.data!.sources ?? [];
+          else {
+            List<Source> sourcesList = viewModel.sourcesList ?? [];
 
-          if (sourcesList.isEmpty) {
-            return Center(
-              child: Text(
-                "No Data",
-                style: Theme.of(context).textTheme.headlineMedium,
-              ),
-            );
+            if (sourcesList.isEmpty) {
+              return Center(
+                child: Text(
+                  "No Data",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              );
+            }
+
+            return SourceWidget(sourcesList: viewModel.sourcesList!);
           }
-
-          return SourceWidget(sourcesList: sourcesList);
-        }
-
-        // Fallback
-        return Center(
-          child: Text(
-            "No Data",
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
-        );
-      },
+        },
+      ),
     );
   }
 }
