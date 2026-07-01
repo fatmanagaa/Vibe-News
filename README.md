@@ -202,17 +202,6 @@ Contributions are welcome!
 
 ---
 
-## 📄 License
-
-This project is currently without a declared license file.  
-Add a `LICENSE` file (for example, MIT) to define usage permissions clearly.
-
----
-
-## 📬 Contact
-
-- GitHub: [@your-github-username](https://github.com/your-github-username)
-- LinkedIn: [Your Name](https://www.linkedin.com/in/your-linkedin-username/)
 
 ---
 
