@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/dio/dio_manager.dart';
-import 'package:news_app/model/news_response.dart';
+import 'package:provider/provider.dart';
 import 'package:news_app/model/source_response.dart';
 
 import '../widget/main_error_widget.dart';
 import '../widget/main_loading_widget.dart';
 import 'news_item.dart';
+import 'news_view_model.dart';
 
 class NewsWidget extends StatefulWidget {
   final Source source;
@@ -17,47 +17,51 @@ class NewsWidget extends StatefulWidget {
 }
 
 class _NewsWidgetState extends State<NewsWidget> {
+  final NewsViewModel viewModel = NewsViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    viewModel.getNews(widget.source.id ?? '');
+  }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<NewsResponse>(
-      future: DioManager().getNewsBySourceId(widget.source.id ?? ''),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const MainLoadingWidget();
-        } else if (snapshot.hasError) {
-          return MainErrorWidget(
-            errorMsg: 'Something went wrong',
-            onRetry: () {
-              setState(() {});
-            },
-          );
-        }
-        //todo:server=>response=>error,success
-        if (snapshot.data?.status == 'error') {
-          return MainErrorWidget(
-            errorMsg: snapshot.data!.message!,
-            onRetry: () {
-              setState(() {});
-            },
-          );
-        }
-        var newsList = snapshot.data?.articles ?? [];
-        if (newsList.isEmpty) {
-          return Center(
-            child: Text(
-              "No Data",
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          );
-        } else {
+    return ChangeNotifierProvider(
+      create: (context) => viewModel,
+      child: Consumer<NewsViewModel>(
+        builder: (context, viewModel, child) {
+          if (viewModel.errorMessage != null) {
+            return MainErrorWidget(
+              errorMsg: 'Something went wrong: ${viewModel.errorMessage}',
+              onRetry: () {
+                viewModel.getNews(widget.source.id ?? '');
+              },
+            );
+          }
+
+          if (viewModel.newsList == null) {
+            return const MainLoadingWidget();
+          }
+
+          var newsList = viewModel.newsList!;
+          if (newsList.isEmpty) {
+            return Center(
+              child: Text(
+                "No Data",
+                style: Theme.of(context).textTheme.headlineMedium,
+              ),
+            );
+          }
+
           return ListView.builder(
+            itemCount: newsList.length,
             itemBuilder: (context, index) {
               return NewsItem(news: newsList[index]);
             },
-            itemCount: newsList.length,
           );
-        }
-      },
+        },
+      ),
     );
   }
 }
