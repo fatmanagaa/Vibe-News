@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/core/utils/app_colors.dart';
 import 'package:news_app/core/utils/app_styles.dart';
+import 'package:news_app/features/home/category_details/category_details_mvvm_bloc.dart';
 import 'package:news_app/model/category.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_language_provider.dart';
 import '../../providers/app_theme_provider.dart';
-import 'category_details/category_details.dart';
+import 'category_details/category_details_mvvm_bloc.dart';
 import 'category_fragment/category_fragment.dart';
 import 'drawer/home_drawer.dart';
 
@@ -39,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: selectedCategory == null
           ? CategoryFragment(onCategoryItemClick: onCategoryItemClick)
-          : CategoryDetails(category: selectedCategory!),
+          : CategoryDetailsMvvmBloc(category: selectedCategory!),
     );
   }
 

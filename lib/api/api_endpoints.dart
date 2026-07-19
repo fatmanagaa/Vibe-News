@@ -1,4 +1,5 @@
 class ApiEndpoints {
-  static const String sourceApi='top-headlines/sources';
-  static const String newsApi='everything';
+  // NewsAPI v2 endpoints
+  static const String sourceApi = 'v2/top-headlines/sources';
+  static const String newsApi = 'v2/everything';
 }

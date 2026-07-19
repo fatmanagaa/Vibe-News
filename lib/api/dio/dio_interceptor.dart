@@ -1,27 +1,29 @@
 import 'package:dio/dio.dart';
-import 'package:news_app/api/api_constants.dart';
+// ...existing code...
 
 class DioInterceptor extends InterceptorsWrapper {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     // You can add headers, log requests, or modify the request here
-        print('onRequest: ${options.baseUrl} ,method:${options.method}');
+    print('onRequest: ${options.baseUrl} ,method:${options.method}');
+    // Continue the request chain. Do NOT call `super` after calling handler.*
     handler.next(options);
-    super.onRequest(options, handler);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     // You can log responses or modify the response here
     print('Response: ${response.statusCode} ${response.requestOptions.path}');
-    super.onResponse(response, handler);
+    // Propagate the response to the next interceptor / caller
+    handler.next(response);
   }
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     // You can log errors or handle them here
     print('Error: ${err.message} ${err.requestOptions.path}');
-    super.onError(err, handler);
+    // Propagate the error
+    handler.next(err);
   }
 
 }

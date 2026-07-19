@@ -16,14 +16,16 @@ class ApiManger {
     });
 
     try {
-      var response = await http.get(url);
-      SourceResponse.fromJson(jsonDecode(response.body));
-      // ده بيعمل كل اللي تحت
+      final response = await http.get(url);
 
-      var responseBody = response.body; //String
-      // convert String to json
-      var responseJson = jsonDecode(responseBody);
-      // convert json to object
+      // Ensure we received a 200 OK - otherwise the body may be HTML (error page)
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Failed to load sources (status: ${response.statusCode}). Body: ${response.body}');
+      }
+
+      final responseBody = response.body; // String
+      final responseJson = jsonDecode(responseBody);
       return SourceResponse.fromJson(responseJson);
     } catch (e) {
       rethrow;
@@ -40,12 +42,15 @@ class ApiManger {
     });
 
     try {
-      var response = await http.get(url);
+      final response = await http.get(url);
 
-      var responseBody = response.body; //String
-      // convert String to json
-      var responseJson = jsonDecode(responseBody);
-      // convert json to object
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Failed to load news (status: ${response.statusCode}). Body: ${response.body}');
+      }
+
+      final responseBody = response.body;
+      final responseJson = jsonDecode(responseBody);
       return NewsResponse.fromJson(responseJson);
     } catch (e) {
       rethrow;
