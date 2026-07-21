@@ -7,34 +7,25 @@ import 'package:news_app/model/source_response.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 class DioManager {
-  final Dio dio = Dio(
-    BaseOptions(
-      baseUrl: "https://newsapi.org/v2/",
-      // queryParameters: {'apiKey': ApiConstants.apiKey},
-      // headers: {
-      //   'X-Api-Key': ApiConstants.apiKey,
-      // },
-      receiveTimeout: Duration(seconds: 30),
-      connectTimeout: Duration(seconds: 30),
-      receiveDataWhenStatusError: true,
-    ),
-  );
+  late final Dio dio;
 
-  // DioManager() {
-  //   dio.interceptors.add(
-  //     LogInterceptor(
-  //       request: true,
-  //       requestUrl: true,
-  //       requestBody: true,
-  //       requestHeader: true,
-  //       responseBody: true,
-  //       responseHeader: true,
-  //       error: true,
-  //     ),
-  //   );
-  // }
-  //todo:another way instead of logInterceptor
-  DioManager() {
+  // Singleton pattern to reuse the same Dio instance throughout the app
+  static final DioManager _instance = DioManager._internal();
+
+  factory DioManager() => _instance;
+
+  DioManager._internal() {
+    dio = Dio(
+      BaseOptions(
+        // The root cause of 404 was the extra 'v2/' here, as ApiEndpoints also contains 'v2/'
+        baseUrl: "https://${ApiConstants.baseUrl}/",
+        receiveTimeout: const Duration(seconds: 30),
+        connectTimeout: const Duration(seconds: 30),
+        receiveDataWhenStatusError: true,
+      ),
+    );
+
+    // Adding Interceptors
     dio.interceptors.add(DioInterceptor());
     dio.interceptors.add(
       PrettyDioLogger(
@@ -46,9 +37,6 @@ class DioManager {
         error: true,
         compact: false,
         maxWidth: 120,
-        logPrint: (object) {
-          print(object.toString());
-        },
       ),
     );
   }
@@ -59,8 +47,7 @@ class DioManager {
         ApiEndpoints.sourceApi,
         queryParameters: {'category': categoryId},
       );
-      var json = response.data;
-      return SourceResponse.fromJson(json);
+      return SourceResponse.fromJson(response.data);
     } on DioException catch (e) {
       print('DioException: ${e.message}');
       rethrow;
@@ -75,8 +62,7 @@ class DioManager {
         ApiEndpoints.newsApi,
         queryParameters: {'sources': sourceId},
       );
-      var json = response.data;
-      return NewsResponse.fromJson(json);
+      return NewsResponse.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
