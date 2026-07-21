@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/features/home/category_details/source/source_tab.dart';
+import 'package:news_app/features/home/news/cubit/news_widget_by_cubit.dart';
 import 'package:news_app/model/source_response.dart';
 
 import '../../news/news_widget.dart';
@@ -40,7 +41,7 @@ class _SourceWidgetState extends State<SourceWidget> {
               );
             }).toList(),
           ),
-          Expanded(child: NewsWidget(source: widget.sourcesList[selectedIndex]))
+          Expanded(child: NewsWidgetByCubit(source: widget.sourcesList[selectedIndex]))
 
 
 

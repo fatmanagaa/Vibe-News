@@ -5,7 +5,8 @@ import '../../../../api/api_manger.dart';
 
 class SourceViewModel extends Cubit<SourceStates> {
   SourceViewModel() : super(SourceLoadingState());
-
+///handle logic , hold data
+  ///but in this case data holded in states class
   void getSources(String categoryId) async {
     try {
       emit(SourceLoadingState());
