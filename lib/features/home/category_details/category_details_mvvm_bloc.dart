@@ -55,7 +55,7 @@ class _CategoryDetailsState extends State<CategoryDetailsMvvmBloc> {
                     child: Text(
                       'Try Again',
                       style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: AppColors.whiteColor,
+                        color: Theme.of(context).splashColor,
                       ),
                     ),
                   ),

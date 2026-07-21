@@ -1,6 +1,6 @@
 import 'package:news_app/model/source_response.dart';
 
-class SourceStates {}
+abstract class SourceStates {}
 
 ///parent class
 
