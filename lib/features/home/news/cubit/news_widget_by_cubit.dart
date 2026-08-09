@@ -18,7 +18,9 @@ class NewsWidgetByCubit extends StatefulWidget {
 }
 
 class _NewsWidgetState extends State<NewsWidgetByCubit> {
-  final NewsViewModelCubit viewModel = NewsViewModelCubit();
+  final NewsViewModelCubit viewModel = NewsViewModelCubit(
+
+  );
 
   @override
   void initState() {
