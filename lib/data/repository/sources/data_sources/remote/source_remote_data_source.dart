@@ -1,0 +1,6 @@
+//todo: remote data source (ds)=>interface
+import 'package:news_app/model/source_response.dart';
+
+abstract class SourceRemoteDataSource {
+  Future<SourceResponse> getSources(String categoryId);
+}

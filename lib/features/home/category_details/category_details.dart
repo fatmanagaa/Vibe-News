@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/api/api_manger.dart';
+import 'package:news_app/data/repository/sources/data_sources/remote/implementation/source_remote_data_source_impl.dart';
+import 'package:news_app/data/repository/sources/repository/implementation/source_repository_impl.dart';
 import 'package:news_app/features/home/category_details/source/source_view_model.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
@@ -17,7 +20,13 @@ class CategoryDetails extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetails> {
-  final SourceViewModel viewModel = SourceViewModel();
+  final SourceViewModel viewModel = SourceViewModel(
+    repository: SourceRepositoryImpl(
+      sourceRemoteDataSource: SourceRemoteDataSourceImpl(
+        apiManager: ApiManger(),
+      ),
+    ),
+  );
 
   @override
   void initState() {
