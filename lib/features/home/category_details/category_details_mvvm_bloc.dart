@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
-import '../../../core/utils/app_colors.dart';
+import '../../../di/di.dart';
 import '../widget/main_loading_widget.dart';
 import 'cubit/source_states.dart';
 import 'cubit/source_view_model.mvvm.bloc.dart';
@@ -18,7 +18,7 @@ class CategoryDetailsMvvmBloc extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetailsMvvmBloc> {
-  final SourceViewModel viewModel = SourceViewModel();
+  SourceViewModel viewModel = SourceViewModel(sourceRepository: injectSourceRepository());
 
   @override
   void initState() {
