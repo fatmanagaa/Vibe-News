@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
 import '../model/news_response.dart';
 import '../model/source_response.dart';
 import 'api_constants.dart';
 import 'api_endpoints.dart';
-
+@singleton
 class ApiManger {
   // https://newsapi.org/v2/top-headlines/sources?apiKey=766d06a223d24570be90b8045f095011
    Future<SourceResponse> getSources( String categoryId) async {

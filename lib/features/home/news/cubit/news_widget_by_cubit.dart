@@ -4,7 +4,7 @@ import 'package:news_app/features/home/news/cubit/news_view_model_cubit.dart';
 import 'package:news_app/features/home/news/news_item.dart';
 import 'package:news_app/model/source_response.dart';
 
-import '../../../../di/di.dart';
+import '../../../../di/di_injectable.dart';
 import '../../widget/main_error_widget.dart';
 import '../../widget/main_loading_widget.dart';
 import 'news_states.dart';
@@ -19,8 +19,7 @@ class NewsWidgetByCubit extends StatefulWidget {
 }
 
 class _NewsWidgetState extends State<NewsWidgetByCubit> {
-  NewsViewModelCubit viewModel = NewsViewModelCubit(newsRepository: injectNewsRepository());
-
+  NewsViewModelCubit viewModel = getIt<NewsViewModelCubit>(); ///field injection
   @override
   void initState() {
     super.initState();
