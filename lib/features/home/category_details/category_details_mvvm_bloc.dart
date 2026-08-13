@@ -39,27 +39,34 @@ class _CategoryDetailsState extends State<CategoryDetailsMvvmBloc> {
           // Error
           else if (state is SourceErrorState) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Something went wrong: ${state.errorMessage}',
-                    style: Theme.of(context).textTheme.labelLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      viewModel.getSources(widget.category.id);
-                    },
-                    child: Text(
-                      'Try Again',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).splashColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(
+                          'Something went wrong: ${state.errorMessage}',
+                          style: Theme.of(context).textTheme.labelLarge,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        viewModel.getSources(widget.category.id);
+                      },
+                      child: Text(
+                        'Try Again',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: Theme.of(context).splashColor,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }
