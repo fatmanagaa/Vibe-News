@@ -8,15 +8,9 @@ import '../../../../data/repository/news/data_source/remote/implementation/news_
 import '../../../../data/repository/news/repository/implementation/news_repository_impl.dart';
 
 class NewsViewModelCubit extends Cubit<NewsStates> {
-  late NewsRepository newsRepository;
-  late NewsRemoteDataSource newsRemoteDataSource;
-  late ApiManger apiManger;
+   NewsRepository newsRepository;
 
-  NewsViewModelCubit() : super(NewsLoadingState()) {
-    newsRepository = NewsRepositoryImpl(
-      newsRemoteDataSource: NewsRemoteDataSourceImpl(apiManger: ApiManger()),
-    );
-  }
+  NewsViewModelCubit({required this.newsRepository}) : super(NewsLoadingState());
 
   void getNewsBySourceId(String sourceId) async {
     try {
