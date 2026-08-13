@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/di/di_injectable.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
-import '../../../di/di.dart';
 import '../widget/main_loading_widget.dart';
 import 'cubit/source_states.dart';
 import 'cubit/source_view_model.mvvm.bloc.dart';
@@ -18,7 +18,7 @@ class CategoryDetailsMvvmBloc extends StatefulWidget {
 }
 
 class _CategoryDetailsState extends State<CategoryDetailsMvvmBloc> {
-  SourceViewModel viewModel = SourceViewModel(sourceRepository: injectSourceRepository());
+  SourceViewModel viewModel = getIt<SourceViewModel>(); ///field injection
 
   @override
   void initState() {
@@ -39,27 +39,34 @@ class _CategoryDetailsState extends State<CategoryDetailsMvvmBloc> {
           // Error
           else if (state is SourceErrorState) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Something went wrong: ${state.errorMessage}',
-                    style: Theme.of(context).textTheme.labelLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      viewModel.getSources(widget.category.id);
-                    },
-                    child: Text(
-                      'Try Again',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: Theme.of(context).splashColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(
+                          'Something went wrong: ${state.errorMessage}',
+                          style: Theme.of(context).textTheme.labelLarge,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        viewModel.getSources(widget.category.id);
+                      },
+                      child: Text(
+                        'Try Again',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: Theme.of(context).splashColor,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }

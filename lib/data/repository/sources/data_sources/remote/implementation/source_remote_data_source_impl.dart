@@ -1,7 +1,8 @@
+import 'package:injectable/injectable.dart';
 import 'package:news_app/api/api_manger.dart';
 import 'package:news_app/model/source_response.dart';
 import '../source_remote_data_source.dart';
-
+@Injectable(as: SourceRemoteDataSource)
 class SourceRemoteDataSourceImpl implements SourceRemoteDataSource {
   final ApiManger apiManager;
 

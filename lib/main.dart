@@ -8,11 +8,14 @@ import 'package:provider/provider.dart';
 import 'core/utils/app_routes.dart';
 import 'core/utils/app_theme.dart';
 import 'core/utils/my_bloc_observer.dart';
+import 'di/di_injectable.dart';
 import 'features/home/home_screen.dart';
 import 'features/splash_screen/splash_screen.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
+  configureDependencies();
+
 
   runApp(
     MultiProvider(

@@ -47,27 +47,34 @@ class _CategoryDetailsState extends State<CategoryDetails> {
           // Error
           else if (viewModel.errorMessage != null) {
             return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Something went wrong: ${viewModel.errorMessage}',
-                    style: Theme.of(context).textTheme.labelLarge,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  ElevatedButton(
-                    onPressed: () {
-                      viewModel.getSources(widget.category.id);
-                    },
-                    child: Text(
-                      'Try Again',
-                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                        color: AppColors.whiteColor,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Text(
+                          'Something went wrong: ${viewModel.errorMessage}',
+                          style: Theme.of(context).textTheme.labelLarge,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    ElevatedButton(
+                      onPressed: () {
+                        viewModel.getSources(widget.category.id);
+                      },
+                      child: Text(
+                        'Try Again',
+                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                              color: AppColors.whiteColor,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           }

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_app/data/repository/news/data_source/remote/news_remote_data_source.dart';
 import 'package:news_app/data/repository/news/repository/news_repository.dart';
 import 'package:news_app/features/home/news/cubit/news_states.dart';
@@ -6,7 +7,7 @@ import 'package:news_app/features/home/news/cubit/news_states.dart';
 import '../../../../api/api_manger.dart';
 import '../../../../data/repository/news/data_source/remote/implementation/news_remote_data_source_impl.dart';
 import '../../../../data/repository/news/repository/implementation/news_repository_impl.dart';
-
+@injectable
 class NewsViewModelCubit extends Cubit<NewsStates> {
    NewsRepository newsRepository;
 
