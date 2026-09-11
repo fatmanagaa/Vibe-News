@@ -2,64 +2,44 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart&logoColor=white)](https://dart.dev)
-[![Provider](https://img.shields.io/badge/State%20Management-Provider-5C2D91)](https://pub.dev/packages/provider)
-[![REST API](https://img.shields.io/badge/API-REST-0A66C2)](#-api-integration)
-[![License](https://img.shields.io/badge/License-Add%20License-lightgrey)](#-license)
+[![BLoC](https://img.shields.io/badge/State%20Management-BLoC%2FCubit-blue)](https://pub.dev/packages/flutter_bloc)
+[![Retrofit](https://img.shields.io/badge/Networking-Retrofit-red)](https://pub.dev/packages/retrofit)
+[![License](https://img.shields.io/badge/License-MIT-green)](#-license)
 
-A modern, responsive Flutter News App built with **Dart**, following **Clean Architecture principles**, and powered by **Provider** for state management and **Dio + REST API** for networking.
+A modern, high-performance Flutter News App built with **Dart**, following **Clean Architecture principles**. It leverages **BLoC/Cubit** for feature-specific state management, **Injectable + GetIt** for Dependency Injection, and **Retrofit** for robust networking.
 
 ---
 
 ## 📌 Project Overview
 
-**Vibe News** helps users discover and read the latest news through a clean and user-friendly interface.  
-The app is designed with reusable components, scalable structure, and clean code practices for maintainability and long-term growth.
+**Vibe News** provides a seamless experience for discovering the latest news across various categories. The project is engineered for scalability and maintainability, utilizing industry-standard patterns for data handling and UI updates.
 
 ---
 
 ## ✨ Features
 
-- 🧭 Browse news by categories  
-- 🔎 Search for news articles  
-- 📰 View article details  
-- 🌗 Light & Dark mode support  
-- 🌍 Multi-language support  
-- 📱 Responsive UI across screen sizes  
-- 📂 Custom Drawer navigation  
-- ♻️ Reusable UI components and clean code structure
+- 🧭 **Category-based Browsing**: Explore news tailored to specific interests (Sports, Technology, Business, etc.).
+- 🌗 **Theme Support**: Fully integrated Light and Dark modes.
+- 📱 **Responsive UI**: Optimized for different screen sizes using `flutter_screenutil`.
+- 📂 **Custom Drawer**: Easy navigation between Home and settings.
+- 💉 **Dependency Injection**: Decoupled components using `GetIt` and `Injectable`.
+- ♻️ **Clean Architecture**: Clear separation of concerns between Data, Core, and Presentation layers.
 
 ---
 
-## 📸 Screenshots
+## 🧱 Architecture & Patterns
 
-> Replace placeholders with your final screenshots.
+This project follows a **Clean Architecture** approach with a **Feature-first structure**:
 
-| Splash (Light) | Home (Dark) |
-|---|---|
-| ![Splash Light](assets/screenshots/splash_light.png) | ![Home Dark](assets/screenshots/home_screen_dark.png) |
-
-| Categories | Article List |
-|---|---|
-| ![Categories](assets/screenshots/Screenshot_20260509_004100.png) | ![Articles](assets/screenshots/Screenshot_20260509_004116.png) |
-
-### Example Placeholder Markdown
-
-```md
-![Home Screen](assets/screenshots/home.png)
-![Category Screen](assets/screenshots/category.png)
-![Article Details](assets/screenshots/article_details.png)
-```
----
-
-## 🧱 Architecture
-
-This project follows a **feature-first structure** and adopts **Clean Architecture principles**:
-
-- **Presentation Layer**: UI screens/widgets + state management with Provider  
-- **Data Layer**: API services, models, and remote data handling  
-- **Core Layer**: Shared styles, routes, constants, utilities, and extensions
-
-This separation improves readability, testability, and scalability.
+- **Presentation Layer**: 
+  - UI screens and widgets.
+  - State management using **Cubit** for feature logic (News, Sources).
+  - **Provider** for global app settings like Theme and Language.
+- **Data Layer**: 
+  - **Repositories**: Abstracted data access.
+  - **Data Sources**: Remote (Retrofit) and Local (Hive placeholders).
+  - **Models**: JSON serialization using `json_serializable`.
+- **Core Layer**: Shared utilities, theme configurations, constants, and extensions.
 
 ---
 
@@ -68,23 +48,24 @@ This separation improves readability, testability, and scalability.
 ```bash
 lib/
 ├── api/
-│   ├── dio/
-│   │   └── dio_manager.dart
+│   ├── retrofit/          # Retrofit services and generated models
 │   ├── api_constants.dart
 │   ├── api_endpoints.dart
-│   └── api_manger.dart
+│   └── api_manger.dart     # Legacy/Alternative API handling
 ├── core/
-│   └── utils/
+│   └── utils/             # Themes, Colors, Styles, and Extensions
+├── data/
+│   └── repository/        # Repository implementations and Data Sources
+├── di/                    # Dependency Injection configuration
 ├── features/
 │   ├── splash_screen/
 │   └── home/
 │       ├── category_fragment/
-│       ├── category_details/
-│       ├── drawer/
-│       ├── news/
-│       └── widget/
-├── model/
-├── providers/
+│       ├── category_details/ # BLoC/Cubit implementations
+│       ├── news/             # BLoC/Cubit implementations
+│       └── drawer/
+├── model/                 # Shared data models
+├── providers/             # Global setting providers (Theme, Language)
 └── main.dart
 ```
 
@@ -94,97 +75,60 @@ lib/
 
 | Category | Stack |
 |---|---|
-| Framework | Flutter |
-| Language | Dart |
-| Architecture | Clean Architecture (principles) |
-| State Management | Provider |
-| Networking | Dio + REST API |
-| UI Utilities | flutter_screenutil, google_fonts |
-| Image Loading | cached_network_image |
+| **Framework** | Flutter |
+| **State Management** | BLoC / Cubit & Provider |
+| **Networking** | Retrofit & Dio |
+| **Dependency Injection** | GetIt & Injectable |
+| **Serialization** | Json Serializable |
+| **UI Utilities** | flutter_screenutil, google_fonts, cached_network_image |
+| **Local Storage** | Hive |
 
 ---
 
 ## 🚀 Installation & Setup
 
 ### 1) Clone the repository
-
 ```bash
 git clone https://github.com/fatmanagaa/Vibe-News.git
 cd Vibe-News
 ```
 
 ### 2) Install dependencies
-
 ```bash
 flutter pub get
 ```
 
-### 3) Run the app
+### 3) Generate boilerplate code (Retrofit/Injectable)
+```bash
+flutter pub run build_runner build --delete-conflicting-outputs
+```
 
+### 4) Run the app
 ```bash
 flutter run
 ```
 
-### 4) Build release (optional)
+---
 
-```bash
-flutter build apk
-```
+## 🧠 State Management Strategy
+
+- **Cubit (flutter_bloc)**: Used for handling data-driven states in features like `NewsWidgetByCubit` and `CategoryDetailsMvvmBloc`. It manages the loading, success, and error states for network requests.
+- **Provider**: Used for lightweight, app-wide states such as `AppThemeProvider` and `AppLanguageProvider`.
+- **BlocObserver**: Custom `MyBlocObserver` is implemented to monitor state transitions globally.
 
 ---
 
-## 📦 Dependencies
+## 🛣️ Future Roadmap
 
-Main dependencies from `pubspec.yaml`:
-
-- `provider`
-- `dio`
-- `http`
-- `cached_network_image`
-- `flutter_screenutil`
-- `google_fonts`
-- `flutter_native_splash`
-- `cupertino_icons`
-
----
-
-## 🌐 API Integration
-
-The app consumes news content from a REST API using a dedicated networking layer:
-
-- API constants and endpoints are centralized in `lib/api/`
-- Dio-based manager handles requests and response parsing
-- Model classes map JSON data into strongly typed Dart objects
-
-This setup keeps API logic modular and easy to maintain.
-
----
-
-## 🧠 State Management
-
-The app uses **Provider** with `ChangeNotifier` for app-wide reactive state:
-
-- `AppThemeProvider` for light/dark theme changes
-- `AppLanguageProvider` for language selection and updates
-
-Provider keeps the UI simple while enabling scalable state updates across screens.
-
----
-
-## 🛣️ Future Improvements
-
-- 🔹 Add complete article details screen flow  
-- 🔹 Enhance search with filters and sorting  
-- 🔹 Improve localization coverage for all app text  
-- 🔹 Add offline caching support  
-- 🔹 Add unit/widget/integration test coverage  
-- 🔹 Add CI checks for formatting, analysis, and tests
+- 🔍 **Search Functionality**: Implement full-text search for news articles.
+- 📖 **Article Details**: Add a dedicated screen for full article reading.
+- 🌍 **Localization**: Complete the implementation for multi-language support.
+- 💾 **Offline Caching**: Fully implement Hive for offline news reading.
+- 🧪 **Testing**: Add unit and widget tests for BLoC and Repositories.
 
 ---
 
 ## 🤝 Contributing
-
-Contributions are welcome!
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -194,9 +138,12 @@ Contributions are welcome!
 
 ---
 
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
 
-## ⭐ Support
+## 📬 Contact
 
-If you like this project, give it a star ⭐ and share it with others.
+- GitHub: [@fatmanagaa](https://github.com/fatmanagaa)

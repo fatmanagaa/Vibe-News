@@ -20,6 +20,8 @@ import '../data/repository/news/data_source/remote/news_remote_data_source.dart'
 import '../data/repository/news/repository/implementation/news_repository_impl.dart'
     as _i1020;
 import '../data/repository/news/repository/news_repository.dart' as _i912;
+import '../data/repository/sources/data_sources/local/source_local_data_source.dart'
+    as _i316;
 import '../data/repository/sources/data_sources/remote/implementation/source_remote_data_source_impl.dart'
     as _i882;
 import '../data/repository/sources/data_sources/remote/source_remote_data_source.dart'
@@ -56,7 +58,8 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i522.SourceRepository>(
       () => _i375.SourceRepositoryImpl(
-        sourceRemoteDataSource: gh<_i567.SourceRemoteDataSource>(),
+        remoteDataSource: gh<_i567.SourceRemoteDataSource>(),
+        localDataSource: gh<_i316.SourceLocalDataSource>(),
       ),
     );
     gh.factory<_i26.SourceViewModel>(
