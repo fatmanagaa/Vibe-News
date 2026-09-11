@@ -52,7 +52,7 @@ class _RetrofitServices implements RetrofitServices {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'top-headlines/sources',
+            'v2/top-headlines/sources',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -82,7 +82,7 @@ class _RetrofitServices implements RetrofitServices {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'everything',
+            'v2/everything',
             queryParameters: queryParameters,
             data: _data,
           )

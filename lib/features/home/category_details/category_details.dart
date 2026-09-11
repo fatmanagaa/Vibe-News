@@ -24,7 +24,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
     repository: SourceRepositoryImpl(
       sourceRemoteDataSource: SourceRemoteDataSourceImpl(
         apiManager: ApiManger(),
-      ),
+      ), remoteDataSource: null, localDataSource: null,
     ),
   );
 
