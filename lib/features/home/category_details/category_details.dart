@@ -4,6 +4,7 @@ import 'package:news_app/data/repository/sources/data_sources/remote/implementat
 import 'package:news_app/data/repository/sources/repository/implementation/source_repository_impl.dart';
 import 'package:news_app/features/home/category_details/source/source_view_model.dart';
 import 'package:news_app/features/home/category_details/source/source_widget.dart';
+import 'package:news_app/data/repository/sources/data_sources/local/implementation/source_local_data_source_implementation.dart';
 import 'package:news_app/model/category.dart';
 import 'package:news_app/model/source_response.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +23,10 @@ class CategoryDetails extends StatefulWidget {
 class _CategoryDetailsState extends State<CategoryDetails> {
   final SourceViewModel viewModel = SourceViewModel(
     repository: SourceRepositoryImpl(
-      sourceRemoteDataSource: SourceRemoteDataSourceImpl(
+      remoteDataSource: SourceRemoteDataSourceImpl(
         apiManager: ApiManger(),
-      ), remoteDataSource: null, localDataSource: null,
+      ),
+      localDataSource: SourceLocalDataSourceImplementation(),
     ),
   );
 
