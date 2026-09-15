@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:news_app/providers/app_language_provider.dart';
 import 'package:news_app/providers/app_theme_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'core/utils/app_routes.dart';
@@ -11,11 +13,16 @@ import 'core/utils/my_bloc_observer.dart';
 import 'di/di_injectable.dart';
 import 'features/home/home_screen.dart';
 import 'features/splash_screen/splash_screen.dart';
+import 'model/source_response.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
+  final documentDirectory = await getApplicationDocumentsDirectory();
+  Hive.init(documentDirectory.path);
+  Hive.registerAdapter(SourceResponseAdapter());
+  Hive.registerAdapter(SourceAdapter());
   configureDependencies();
-
 
   runApp(
     MultiProvider(
@@ -48,7 +55,7 @@ class MyApp extends StatelessWidget {
         },
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        themeMode:appThemeProvider.appTheme,
+        themeMode: appThemeProvider.appTheme,
       ),
     );
   }

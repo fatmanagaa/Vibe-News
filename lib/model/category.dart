@@ -8,7 +8,7 @@ class Category {
 
   Category({required this.image, required this.title, required this.id});
 
-  ///business entertainment general health science sports technology
+  ///business, entertainment, general,health,science,sports, technology
   static List<Category> getCategoriesList(BuildContext context) {
     return [
       Category(
